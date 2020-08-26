@@ -548,7 +548,7 @@ public class CameraScanActivity extends BaseFragment implements Camera.PreviewCa
                 onNoQrFound(bitmap != null);
                 return null;
             }
-            if (!text.startsWith("ton://transfer/")) {
+            if (!text.startsWith("freeton://transfer/")) {
                 onNoWalletFound(bitmap != null);
                 return null;
             }

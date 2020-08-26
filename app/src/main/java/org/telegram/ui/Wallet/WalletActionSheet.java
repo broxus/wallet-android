@@ -306,7 +306,7 @@ public class WalletActionSheet extends BottomSheet {
                         return;
                     }
                     String str = s.toString();
-                    if (isPaste && str.toLowerCase().startsWith("ton://transfer")) {
+                    if (isPaste && str.toLowerCase().startsWith("freeton://transfer")) {
                         ignoreTextChange = true;
                         parseTonUrl(s, str);
                         ignoreTextChange = false;
@@ -343,7 +343,7 @@ public class WalletActionSheet extends BottomSheet {
                 copyButton.setBackgroundDrawable(Theme.createSelectorDrawable(Theme.getColor(Theme.key_actionBarWhiteSelector), 6));
                 addView(copyButton, LayoutHelper.createFrame(48, 48, Gravity.TOP | (LocaleController.isRTL ? Gravity.LEFT : Gravity.RIGHT), 6, 10, 6, 0));
                 copyButton.setOnClickListener(v -> {
-                    AndroidUtilities.addToClipboard("ton://transfer/" + recipientString.replace("\n", ""));
+                    AndroidUtilities.addToClipboard("freeton://transfer/" + recipientString.replace("\n", ""));
                     Toast.makeText(v.getContext(), LocaleController.getString("WalletTransactionAddressCopied", R.string.WalletTransactionAddressCopied), Toast.LENGTH_SHORT).show();
                 });
             }
@@ -645,7 +645,7 @@ public class WalletActionSheet extends BottomSheet {
                         onFieldError(amountRow);
                         return;
                     }
-                    String url = "ton://transfer/" + walletAddress + "/?amount=" + amountValue;
+                    String url = "freeton://transfer/" + walletAddress + "/?amount=" + amountValue;
                     if (!TextUtils.isEmpty(commentString)) {
                         try {
                             url += "&text=" + URLEncoder.encode(commentString, "UTF-8").replaceAll("\\+", "%20");

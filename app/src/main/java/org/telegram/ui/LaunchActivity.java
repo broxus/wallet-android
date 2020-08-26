@@ -190,8 +190,8 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
                 if (scheme != null) {
                     if ("ton".equals(scheme)) {
                         String url = data.toString();
-                        if (url.startsWith("ton:transfer") || url.startsWith("ton://transfer")) {
-                            transferWalletUrl = url.replace("ton:transfer", "ton://transfer");
+                        if (url.startsWith("freeton:transfer") || url.startsWith("freeton://transfer")) {
+                            transferWalletUrl = url.replace("freeton:transfer", "freeton://transfer");
                         }
                     }
                 }

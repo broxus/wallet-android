@@ -135,12 +135,12 @@ public class UserConfig extends BaseController {
             walletConfigFromUrl[NETWORK_TYPE_TEST] = preferences.getString("walletConfigFromUrl", "");
 
             walletConfig[NETWORK_TYPE_MAIN] = preferences.getString("walletConfigMain", "");
-            walletConfigUrl[NETWORK_TYPE_MAIN] = preferences.getString("walletConfigUrlMain", "https://ton.org/config.json");
+            walletConfigUrl[NETWORK_TYPE_MAIN] = preferences.getString("walletConfigUrlMain", "https://freeton.broxus.com/config.json");
             walletConfigType[NETWORK_TYPE_MAIN] = preferences.getInt("walletConfigTypeMain", TonController.CONFIG_TYPE_URL);
             walletBlockchainName[NETWORK_TYPE_MAIN] = preferences.getString("walletBlockchainNameMain", "mainnet");
             walletConfigFromUrl[NETWORK_TYPE_MAIN] = preferences.getString("walletConfigFromUrlMain", "");
 
-            currentNetworkType = preferences.getInt("walletCurrentNetworkType", NETWORK_TYPE_TEST);
+            currentNetworkType = preferences.getInt("walletCurrentNetworkType", NETWORK_TYPE_MAIN);
 
             configLoaded = true;
         }

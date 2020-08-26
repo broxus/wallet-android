@@ -1152,7 +1152,7 @@ public class WalletActivity extends BaseFragment implements NotificationCenter.N
                     view = new WalletBalanceCell(context) {
                         @Override
                         protected void onReceivePressed() {
-                            showInvoiceSheet("ton://transfer/" + walletAddress, 0);
+                            showInvoiceSheet("freeton://transfer/" + walletAddress, 0);
                         }
 
                         @Override

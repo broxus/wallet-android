@@ -65,7 +65,7 @@ public class WalletCreatedCell extends FrameLayout {
         addressValueTextView.setTextColor(Theme.getColor(Theme.key_wallet_blackText));
         container.addView(addressValueTextView, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL, 0, 13, 0, 0));
         addressValueTextView.setOnLongClickListener(v -> {
-            AndroidUtilities.addToClipboard("ton://transfer/" + addressValueTextView.getText().toString().replace("\n", ""));
+            AndroidUtilities.addToClipboard("freeton://transfer/" + addressValueTextView.getText().toString().replace("\n", ""));
             Toast.makeText(v.getContext(), LocaleController.getString("WalletTransactionAddressCopied", R.string.WalletTransactionAddressCopied), Toast.LENGTH_SHORT).show();
             return true;
         });

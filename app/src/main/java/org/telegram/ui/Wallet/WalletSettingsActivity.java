@@ -247,11 +247,11 @@ public class WalletSettingsActivity extends BaseFragment {
             fieldRow = rowCount++;
             fieldSectionRow = rowCount++;
             blockchainNameHeaderRow = rowCount++;
-            //blockchainMainRow = rowCount++;
+            blockchainMainRow = rowCount++;
             //blockchainTestRow = rowCount++;
-            if (networkType == UserConfig.NETWORK_TYPE_TEST) {
-                blockchainNameRow = rowCount++;
-            }
+            //if (networkType == UserConfig.NETWORK_TYPE_TEST) {
+            //    blockchainNameRow = rowCount++;
+            //}
             blockchainNameSectionRow = rowCount++;
         }
     }
@@ -832,7 +832,7 @@ public class WalletSettingsActivity extends BaseFragment {
                         cell.setText(LocaleController.getString("WalletConfigTypeInfo", R.string.WalletConfigTypeInfo));
                         resId = R.drawable.greydivider;
                     } else if (position == blockchainNameSectionRow) {
-                        cell.setText(LocaleController.getString("WalletBlockchainNameInfo", R.string.WalletBlockchainNameInfo));
+                        //cell.setText(LocaleController.getString("WalletBlockchainNameInfo", R.string.WalletBlockchainNameInfo));
                         resId = R.drawable.greydivider_bottom;
                     }
                     Drawable drawable = Theme.getThemedDrawable(context, resId, Theme.key_windowBackgroundGrayShadow);
