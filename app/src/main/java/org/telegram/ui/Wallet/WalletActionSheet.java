@@ -82,6 +82,8 @@ public class WalletActionSheet extends BottomSheet {
 
     public static final int SEND_ACTIVITY_RESULT_CODE = 33;
 
+    public static final String DEEPLINK_BASE_URL = "https://freeton.broxus.com";
+
     private int currentType;
 
     private ListAdapter listAdapter;
@@ -140,7 +142,7 @@ public class WalletActionSheet extends BottomSheet {
 
         }
 
-        default void openInvoice(String url, long amount) {
+        default void openInvoice(String rawUrl, String deepLinkUrl, long amount) {
 
         }
 
@@ -343,7 +345,7 @@ public class WalletActionSheet extends BottomSheet {
                 copyButton.setBackgroundDrawable(Theme.createSelectorDrawable(Theme.getColor(Theme.key_actionBarWhiteSelector), 6));
                 addView(copyButton, LayoutHelper.createFrame(48, 48, Gravity.TOP | (LocaleController.isRTL ? Gravity.LEFT : Gravity.RIGHT), 6, 10, 6, 0));
                 copyButton.setOnClickListener(v -> {
-                    AndroidUtilities.addToClipboard("freeton://transfer/" + recipientString.replace("\n", ""));
+                    AndroidUtilities.addToClipboard(DEEPLINK_BASE_URL + "?address=" + recipientString.replace("\n", ""));
                     Toast.makeText(v.getContext(), LocaleController.getString("WalletTransactionAddressCopied", R.string.WalletTransactionAddressCopied), Toast.LENGTH_SHORT).show();
                 });
             }
@@ -645,16 +647,19 @@ public class WalletActionSheet extends BottomSheet {
                         onFieldError(amountRow);
                         return;
                     }
-                    String url = "freeton://transfer/" + walletAddress + "/?amount=" + amountValue;
+                    String rawUrl = "freeton://transfer/" + walletAddress + "/?amount=" + amountValue;
+                    String deepLinkUrl = DEEPLINK_BASE_URL + "?address=" + walletAddress + "&amount=" + amountValue;
                     if (!TextUtils.isEmpty(commentString)) {
                         try {
-                            url += "&text=" + URLEncoder.encode(commentString, "UTF-8").replaceAll("\\+", "%20");
+                            String text = "&text=" + URLEncoder.encode(commentString, "UTF-8").replaceAll("\\+", "%20");
+                            rawUrl += text;
+                            deepLinkUrl += text;
                         } catch (Exception e) {
                             FileLog.e(e);
                         }
                     }
                     dismiss();
-                    delegate.openInvoice(url, amountValue);
+                    delegate.openInvoice(rawUrl, deepLinkUrl, amountValue);
                 }
             });
         }

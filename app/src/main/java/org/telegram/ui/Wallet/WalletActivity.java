@@ -992,7 +992,7 @@ public class WalletActivity extends BaseFragment implements NotificationCenter.N
         getTonController().getTransactions(reload, getLastTransactionId(reload));
     }
 
-    private void showInvoiceSheet(String url, long amount) {
+    private void showInvoiceSheet(String rawUrl, String deepLinkUrl, long amount) {
         if (getParentActivity() == null || walletAddress == null) {
             return;
         }
@@ -1019,14 +1019,14 @@ public class WalletActivity extends BaseFragment implements NotificationCenter.N
             menuItem.setDelegate(id -> {
                 builder.getDismissRunnable().run();
                 if (id == 1) {
-                    AndroidUtilities.addToClipboard(url);
+                    AndroidUtilities.addToClipboard(deepLinkUrl);
                     Toast.makeText(getParentActivity(), LocaleController.getString("LinkCopied", R.string.LinkCopied), Toast.LENGTH_SHORT).show();
                 } else if (id == 2) {
                     walletActionSheet = new WalletActionSheet(WalletActivity.this, WalletActionSheet.TYPE_INVOICE, walletAddress);
                     walletActionSheet.setDelegate(new WalletActionSheet.WalletActionSheetDelegate() {
                         @Override
-                        public void openInvoice(String url, long amount) {
-                            showInvoiceSheet(url, amount);
+                        public void openInvoice(String rawUrl, String deepLinkUrl, long amount) {
+                            showInvoiceSheet(rawUrl, deepLinkUrl, amount);
                         }
                     });
                     walletActionSheet.setOnDismissListener(dialog -> {
@@ -1078,10 +1078,10 @@ public class WalletActivity extends BaseFragment implements NotificationCenter.N
         TextView addressValueTextView = new TextView(context);
 
         ImageView imageView = new ImageView(context);
-        imageView.setImageBitmap(getTonController().createTonQR(context, url, null));
+        imageView.setImageBitmap(getTonController().createTonQR(context, rawUrl, null));
         linearLayout.addView(imageView, LayoutHelper.createLinear(190, 190, Gravity.CENTER_HORIZONTAL | Gravity.TOP, 0, 16, 0, 0));
         imageView.setOnLongClickListener(v -> {
-            TonController.shareBitmap(getParentActivity(), v, url);
+            TonController.shareBitmap(getParentActivity(), v, deepLinkUrl);
             return true;
         });
 
@@ -1093,7 +1093,7 @@ public class WalletActivity extends BaseFragment implements NotificationCenter.N
         addressValueTextView.setText(stringBuilder);
         linearLayout.addView(addressValueTextView, LayoutHelper.createLinear(LayoutHelper.WRAP_CONTENT, LayoutHelper.WRAP_CONTENT, Gravity.CENTER_HORIZONTAL, 0, 16, 0, 0));
         addressValueTextView.setOnLongClickListener(v -> {
-            AndroidUtilities.addToClipboard(url);
+            AndroidUtilities.addToClipboard(deepLinkUrl);
             Toast.makeText(getParentActivity(), LocaleController.getString("WalletTransactionAddressCopied", R.string.WalletTransactionAddressCopied), Toast.LENGTH_SHORT).show();
             return true;
         });
@@ -1111,7 +1111,7 @@ public class WalletActivity extends BaseFragment implements NotificationCenter.N
         buttonTextView.setTypeface(AndroidUtilities.getTypeface("fonts/rmedium.ttf"));
         buttonTextView.setBackground(Theme.createSimpleSelectorRoundRectDrawable(AndroidUtilities.dp(4), Theme.getColor(Theme.key_featuredStickers_addButton), Theme.getColor(Theme.key_featuredStickers_addButtonPressed)));
         linearLayout.addView(buttonTextView, LayoutHelper.createLinear(LayoutHelper.MATCH_PARENT, 42, Gravity.LEFT | Gravity.TOP, 16, 20, 16, 16));
-        buttonTextView.setOnClickListener(v -> AndroidUtilities.openSharing(this, url));
+        buttonTextView.setOnClickListener(v -> AndroidUtilities.openSharing(this, deepLinkUrl));
 
         ScrollView scrollView = new ScrollView(context);
         scrollView.setVerticalScrollBarEnabled(false);
@@ -1152,7 +1152,9 @@ public class WalletActivity extends BaseFragment implements NotificationCenter.N
                     view = new WalletBalanceCell(context) {
                         @Override
                         protected void onReceivePressed() {
-                            showInvoiceSheet("freeton://transfer/" + walletAddress, 0);
+                            String rawUrl = "freeton://transfer/" + walletAddress;
+                            String deepLinkUrl = WalletActionSheet.DEEPLINK_BASE_URL + "?address=" + walletAddress;
+                            showInvoiceSheet(rawUrl, deepLinkUrl, 0);
                         }
 
                         @Override
