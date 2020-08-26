@@ -188,7 +188,7 @@ public class LaunchActivity extends Activity implements ActionBarLayout.ActionBa
             if (data != null) {
                 String scheme = data.getScheme();
                 if (scheme != null) {
-                    if ("ton".equals(scheme)) {
+                    if ("freeton".equals(scheme)) {
                         String url = data.toString();
                         if (url.startsWith("freeton:transfer") || url.startsWith("freeton://transfer")) {
                             transferWalletUrl = url.replace("freeton:transfer", "freeton://transfer");

@@ -271,7 +271,7 @@ public class Browser {
     public static boolean isInternalUri(Uri uri, boolean[] forceBrowser) {
         String host = uri.getHost();
         host = host != null ? host.toLowerCase() : "";
-        if ("ton".equals(uri.getScheme())) {
+        if ("freeton".equals(uri.getScheme())) {
             return true;
         } else if ("tg".equals(uri.getScheme())) {
             return true;
