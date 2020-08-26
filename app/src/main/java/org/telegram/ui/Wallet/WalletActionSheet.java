@@ -624,7 +624,9 @@ public class WalletActionSheet extends BottomSheet {
                     dismiss();
                 } else if (currentType == TYPE_SEND) {
                     int codePoints = recipientString.codePointCount(0, recipientString.length());
-                    if (codePoints != 48 || !TonController.getInstance(currentAccount).isValidWalletAddress(recipientString)) {
+                    boolean canBePacked = codePoints == 48;
+                    boolean canBeRaw = (codePoints >= 66) && (codePoints <= 67);
+                    if (!canBePacked && !canBeRaw || !TonController.getInstance(currentAccount).isValidWalletAddress(recipientString)) {
                         onFieldError(recipientRow);
                         return;
                     }
